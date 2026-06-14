@@ -1,0 +1,265 @@
+/* ==========================================================================
+   Game Info Panel Styles
+   ========================================================================== */
+
+.game-info {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  animation: slideInRight 0.5s var(--ease-out) both;
+  animation-delay: 0.2s;
+}
+
+/* Player Cards */
+.player-card {
+  padding: var(--space-md);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.player-card--active {
+  border-color: var(--active-color, var(--color-accent-gold));
+  box-shadow: 0 0 12px var(--active-glow, var(--color-accent-gold-glow));
+  --glow-color: var(--active-color, var(--color-accent-gold));
+  animation: pulseGlow 2s infinite;
+}
+
+.player-card--p1 {
+  --active-color: var(--color-accent-gold);
+  --active-glow: var(--color-accent-gold-glow);
+}
+
+.player-card--p2 {
+  --active-color: var(--color-accent-cyan);
+  --active-glow: var(--color-accent-cyan-glow);
+}
+
+.player-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.player-card-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.player-card--p1 .player-card-indicator {
+  background: var(--color-accent-gold);
+}
+
+.player-card--p2 .player-card-indicator {
+  background: var(--color-accent-cyan);
+}
+
+.player-card-name {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-card-tag {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: hsla(145, 65%, 48%, 0.15);
+  color: var(--color-accent-green);
+}
+
+.player-card-stats {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.player-card-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.player-card-stat-value {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  font-family: var(--font-mono);
+}
+
+.player-card-stat-label {
+  font-size: var(--fs-xs);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Game Stats */
+.game-stats {
+  padding: var(--space-md);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+}
+
+.game-stats-title {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-md);
+}
+
+.game-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.game-stat-item {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-sm);
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-md);
+}
+
+.game-stat-value {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+}
+
+.game-stat-label {
+  font-size: var(--fs-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* Move History */
+.move-history {
+  padding: var(--space-md);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.move-history-title {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-md);
+}
+
+.move-history-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.move-history-empty {
+  font-size: var(--fs-sm);
+  color: var(--color-text-tertiary);
+  text-align: center;
+  padding: var(--space-lg) 0;
+}
+
+.move-entry {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  animation: fadeIn 0.3s var(--ease-out) both;
+}
+
+.move-entry:nth-child(odd) {
+  background: hsla(222, 35%, 15%, 0.5);
+}
+
+.move-entry-number {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--color-text-tertiary);
+  min-width: 24px;
+  text-align: right;
+}
+
+.move-entry-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.move-entry--p1 .move-entry-dot { background: var(--color-accent-gold); }
+.move-entry--p2 .move-entry-dot { background: var(--color-accent-cyan); }
+
+.move-entry-text {
+  flex: 1;
+  color: var(--color-text-secondary);
+}
+
+.move-entry-type {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--color-text-tertiary);
+  padding: 1px 6px;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-sm);
+}
+
+/* Action Buttons */
+.game-actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.game-actions .btn {
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .game-info {
+    width: 100%;
+    max-width: 520px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .player-card {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .game-stats,
+  .move-history {
+    flex: 1 1 100%;
+  }
+
+  .move-history-list {
+    max-height: 150px;
+  }
+
+  .game-actions {
+    flex: 1 1 100%;
+  }
+}

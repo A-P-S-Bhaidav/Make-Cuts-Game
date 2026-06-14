@@ -1,0 +1,262 @@
+/* ==========================================================================
+   Game Board Styles
+   ========================================================================== */
+
+.game-page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 72px);
+  padding: var(--space-lg);
+}
+
+.game-layout {
+  display: flex;
+  gap: var(--space-xl);
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  flex: 1;
+  align-items: flex-start;
+}
+
+.game-board-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+/* Board container */
+.board {
+  position: relative;
+  display: inline-block;
+  padding: var(--space-lg);
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-surface-glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  animation: scaleIn 0.5s var(--ease-out) both;
+}
+
+.board-inner {
+  position: relative;
+  display: grid;
+}
+
+/* Grid cells */
+.board-cell {
+  width: var(--cell-size, 64px);
+  height: var(--cell-size, 64px);
+  border-radius: 3px;
+  transition: background-color var(--duration-slow) var(--ease-out);
+  position: relative;
+}
+
+.board-cell::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    135deg,
+    hsla(0, 0%, 100%, 0.03) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+/* Edge (clickable cut line) base */
+.board-edge {
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.board-edge::before {
+  content: '';
+  position: absolute;
+  border-radius: 2px;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+/* Horizontal edges */
+.board-edge--horizontal {
+  height: 16px;
+  transform: translateY(-50%);
+}
+
+.board-edge--horizontal::before {
+  left: 2px;
+  right: 2px;
+  top: 50%;
+  height: 3px;
+  transform: translateY(-50%);
+  background: var(--color-grid-line);
+}
+
+/* Vertical edges */
+.board-edge--vertical {
+  width: 16px;
+  transform: translateX(-50%);
+}
+
+.board-edge--vertical::before {
+  top: 2px;
+  bottom: 2px;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  background: var(--color-grid-line);
+}
+
+/* Edge states */
+
+/* Hoverable (valid cut) */
+.board-edge--valid:hover::before {
+  background: var(--color-valid-edge);
+  box-shadow: 0 0 12px var(--color-valid-glow),
+              0 0 4px var(--color-valid-glow);
+}
+
+.board-edge--valid:hover {
+  z-index: 20;
+}
+
+/* Preview highlight (when hovering, shows entire cut line) */
+.board-edge--preview::before {
+  background: var(--color-valid-edge);
+  opacity: 0.5;
+  box-shadow: 0 0 8px var(--color-valid-glow);
+}
+
+/* Cut state */
+.board-edge--cut::before {
+  background: var(--color-cut-line);
+  box-shadow: 0 0 8px var(--color-cut-glow);
+}
+
+.board-edge--cut {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Cut animation */
+.board-edge--animating::before {
+  background: hsl(0, 90%, 60%);
+  box-shadow: 0 0 16px hsla(0, 90%, 60%, 0.7),
+              0 0 32px hsla(0, 90%, 60%, 0.3);
+}
+
+.board-edge--animating.board-edge--horizontal::before {
+  animation: cutSlash 0.4s var(--ease-out) both;
+  transform-origin: left center;
+}
+
+.board-edge--animating.board-edge--vertical::before {
+  animation: cutSlash 0.4s var(--ease-out) both;
+  transform-origin: center top;
+}
+
+/* Invalid hover */
+.board-edge--invalid {
+  cursor: not-allowed;
+}
+
+.board-edge--invalid:hover::before {
+  background: var(--color-invalid-edge);
+  opacity: 0.4;
+}
+
+/* Disabled state (game over) */
+.board-edge--disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Grid intersection dots */
+.board-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-grid-dot);
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Region gap animation */
+.board-cell--split {
+  animation: gridReveal 0.3s var(--ease-out) both;
+}
+
+/* Turn indicator on board */
+.board-turn-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-md);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  border-radius: var(--radius-md);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.board-turn-banner--p1 {
+  background: hsla(38, 92%, 55%, 0.1);
+  color: var(--color-accent-gold);
+  border: 1px solid hsla(38, 92%, 55%, 0.2);
+}
+
+.board-turn-banner--p2 {
+  background: hsla(200, 85%, 55%, 0.1);
+  color: var(--color-accent-cyan);
+  border: 1px solid hsla(200, 85%, 55%, 0.2);
+}
+
+.board-turn-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+.board-turn-banner--p1 .board-turn-dot {
+  background: var(--color-accent-gold);
+}
+
+.board-turn-banner--p2 .board-turn-dot {
+  background: var(--color-accent-cyan);
+}
+
+@media (max-width: 900px) {
+  .game-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game-board-wrapper {
+    min-height: auto;
+  }
+
+  .board {
+    padding: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .game-page {
+    padding: var(--space-sm);
+  }
+
+  .board {
+    padding: var(--space-sm);
+  }
+}

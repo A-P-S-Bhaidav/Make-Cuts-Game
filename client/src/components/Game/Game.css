@@ -1,0 +1,43 @@
+/* ==========================================================================
+   Game Page Styles (wraps Board + GameInfo in layout)
+   ========================================================================== */
+
+.game-page-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 72px);
+  text-align: center;
+  padding: var(--space-2xl);
+  animation: fadeIn 0.5s var(--ease-out) both;
+}
+
+.game-page-empty-icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-lg);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-default);
+}
+
+.game-page-empty-icon svg {
+  width: 40px;
+  height: 40px;
+  color: var(--color-text-tertiary);
+}
+
+.game-page-empty h2 {
+  font-size: var(--fs-xl);
+  margin-bottom: var(--space-sm);
+}
+
+.game-page-empty p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-lg);
+  max-width: 400px;
+}
