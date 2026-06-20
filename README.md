@@ -88,7 +88,6 @@ Make-Cuts-Game/
       index.css                     # Design system and global styles
     index.html                      # HTML entry with SEO meta tags
     vite.config.js                  # Vite build configuration
-    vercel.json                     # Vercel SPA rewrite rules
     package.json
   server/                           # Express + Socket.io backend
     index.js                        # Server entry point
@@ -96,6 +95,7 @@ Make-Cuts-Game/
     roomStore.js                    # In-memory room storage
     package.json
   .gitignore
+  vercel.json                       # Vercel build + SPA rewrite config
   README.md
 ```
 
@@ -191,11 +191,14 @@ The production bundle is output to `client/dist/`.
 
 ### Vercel (Frontend)
 
+The root-level `vercel.json` handles all configuration automatically.
+
 1. Connect your GitHub repository to [Vercel](https://vercel.com)
-2. Set the **Root Directory** to `client`
-3. Build command: `npm run build`
-4. Output directory: `dist`
-5. The `vercel.json` handles SPA rewrites automatically
+2. Keep the **Root Directory** as the default (repository root)
+3. Deploy -- Vercel reads `vercel.json` and automatically runs the build from the `client/` subdirectory
+4. SPA rewrites are configured so all routes resolve correctly
+
+**Live deployment:** [https://make-cuts-game.vercel.app](https://make-cuts-game.vercel.app)
 
 ### Backend (Render/Railway)
 
